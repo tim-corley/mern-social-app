@@ -2,7 +2,6 @@ import React from "react";
 import App from "./App";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
-import Posts from "./components/Demo";
 
 const client = new ApolloClient({
   uri: "http://localhost:5000/",
@@ -12,6 +11,5 @@ const client = new ApolloClient({
 export default (
   <ApolloProvider client={client}>
     <App />
-    <Posts />
   </ApolloProvider>
 );
