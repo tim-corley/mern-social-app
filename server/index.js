@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { ApolloServer, PubSub } = require("apollo-server");
 const mongoose = require("mongoose");
+const express = require("express");
+const cors = require("cors");
 
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
@@ -8,6 +10,9 @@ const { MONGODB } = require("./config.js");
 const SERVER_PORT = process.env.SERVER_PORT;
 
 const pubsub = new PubSub();
+
+const app = express();
+app.use(cors());
 
 // this is using Express behind the scenes
 const server = new ApolloServer({
