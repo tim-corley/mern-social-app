@@ -1,30 +1,9 @@
 import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Grid } from "semantic-ui-react";
 
 import PostCard from "./PostCard";
-
-const GET_POSTS = gql`
-  query GetPosts {
-    getPosts {
-      id
-      body
-      username
-      createdAt
-      likes {
-        username
-      }
-      comments {
-        id
-        body
-        username
-        createdAt
-      }
-      commentCount
-      likeCount
-    }
-  }
-`;
+import { GET_POSTS } from "../utils/graphql";
 
 function RecentPosts() {
   const { loading, error, data } = useQuery(GET_POSTS);

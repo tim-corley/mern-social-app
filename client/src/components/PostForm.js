@@ -3,6 +3,7 @@ import { Form, Button } from "semantic-ui-react";
 import { useMutation, gql } from "@apollo/client";
 
 import { useForm } from "../utils/hooks";
+import { GET_POSTS } from "../utils/graphql";
 
 function PostForm() {
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
@@ -10,9 +11,18 @@ function PostForm() {
   });
 
   const [createPost, { error }] = useMutation(CREATE_POST, {
+    errorPolicy: "all",
     variables: values,
-    update(_, result) {
-      console.log(result);
+    update(proxy, result) {
+      const data = proxy.readQuery({
+        query: GET_POSTS,
+      });
+      proxy.writeQuery({
+        query: GET_POSTS,
+        data: {
+          getPosts: [result.data.createPost, ...data.getPosts],
+        },
+      });
       values.body = "";
     },
   });
@@ -22,20 +32,30 @@ function PostForm() {
   }
 
   return (
-    <Form onSubmit={onSubmit}>
-      <h2>Create New Post</h2>
-      <Form.Field>
-        <Form.Input
-          placeholder="Hello there."
-          name="body"
-          onChange={onChange}
-          value={values.body}
-        />
-        <Button type="submit" color="teal">
-          Submit
-        </Button>
-      </Form.Field>
-    </Form>
+    <>
+      <Form onSubmit={onSubmit}>
+        <h2>Create New Post</h2>
+        <Form.Field>
+          <Form.Input
+            placeholder="Hello there."
+            name="body"
+            onChange={onChange}
+            value={values.body}
+            error={error ? true : false}
+          />
+          <Button type="submit" color="teal">
+            Submit
+          </Button>
+        </Form.Field>
+      </Form>
+      {error && (
+        <div className="ui error message">
+          <ul className="list">
+            <li>{error.graphQLErrors[0].message}</li>
+          </ul>
+        </div>
+      )}
+    </>
   );
 }
 

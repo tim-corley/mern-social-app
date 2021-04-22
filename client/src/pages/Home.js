@@ -13,9 +13,13 @@ function Home() {
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
-        <Grid.Column>
-          <PostForm />
-        </Grid.Column>
+        {user ? (
+          <Grid.Column>
+            <PostForm />
+          </Grid.Column>
+        ) : (
+          ""
+        )}
         <RecentPosts />
       </Grid.Row>
     </Grid>
