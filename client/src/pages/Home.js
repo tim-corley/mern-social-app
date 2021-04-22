@@ -1,12 +1,17 @@
 import React from "react";
-import Posts from "../components/Demo";
+import RecentPosts from "../components/RecentPosts";
+import { Grid } from "semantic-ui-react";
 
 function Home() {
   return (
-    <div>
-      <h2>Home Page</h2>
-      <Posts />
-    </div>
+    <Grid columns={3}>
+      <Grid.Row className="page-title">
+        <h1>Recent Posts</h1>
+      </Grid.Row>
+      <Grid.Row>
+        <RecentPosts />
+      </Grid.Row>
+    </Grid>
   );
 }
 
