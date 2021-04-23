@@ -20,9 +20,31 @@ const authLink = setContext(() => {
   };
 });
 
+//https://www.apollographql.com/docs/react/caching/cache-field-behavior/#merging-non-normalized-objects
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Post: {
+        fields: {
+          comments: {
+            merge(existing, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
+      Query: {
+        fields: {
+          getPosts: {
+            merge(existing, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
+    },
+  }),
 });
 
 export default (

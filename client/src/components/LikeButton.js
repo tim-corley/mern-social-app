@@ -10,7 +10,7 @@ function LikeButton({ post: { id, likes, likeCount } }) {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    if (user && likes.find((like) => like.username == user.username)) {
+    if (user && likes.find((like) => like.username === user.username)) {
       setLiked(true);
     } else setLiked(false);
   }, [user, likes]);
@@ -19,11 +19,11 @@ function LikeButton({ post: { id, likes, likeCount } }) {
 
   const likeButton = user ? (
     liked ? (
-      <Button color="teal">
+      <Button onClick={likePost} color="teal">
         <Icon name="heart" />
       </Button>
     ) : (
-      <Button color="teal" basic>
+      <Button onClick={likePost} color="teal" basic>
         <Icon name="heart" />
       </Button>
     )
@@ -34,7 +34,7 @@ function LikeButton({ post: { id, likes, likeCount } }) {
   );
   return (
     <div>
-      <Button as="div" labelPosition="right" onClick={likePost}>
+      <Button as="div" labelPosition="right">
         {likeButton}
         <Label basic color="teal" pointing="left">
           {likeCount}
