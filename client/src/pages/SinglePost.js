@@ -1,6 +1,14 @@
-import React, { useContext } from "react";
-import { useQuery, gql } from "@apollo/client";
-import { Card, Icon, Label, Image, Button, Grid } from "semantic-ui-react";
+import React, { useState, useContext, useRef } from "react";
+import { useQuery, useMutation, gql } from "@apollo/client";
+import {
+  Card,
+  Icon,
+  Label,
+  Image,
+  Button,
+  Grid,
+  Form,
+} from "semantic-ui-react";
 
 import { Helpers } from "../utils/helpers";
 import { AuthContext } from "../context/auth";
@@ -10,9 +18,22 @@ import DeleteButton from "../components/DeleteButton";
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
+  const commentInputRef = useRef(null);
+  const [comment, setComment] = useState("");
 
   const { loading, error, data } = useQuery(FETCH_POST, {
     variables: { postId },
+  });
+
+  const [submitComment] = useMutation(SUBMIT_COMMENT, {
+    update() {
+      setComment("");
+      commentInputRef.current.blur();
+    },
+    variables: {
+      postId,
+      body: comment,
+    },
   });
 
   if (loading) return <p className={loading ? "loading" : ""}>Loading...</p>;
@@ -78,6 +99,34 @@ function SinglePost(props) {
                 )}
               </Card.Content>
             </Card>
+            {user && (
+              <Card fluid>
+                <Card.Content>
+                  <p>Post a comment</p>
+                  <Form>
+                    <div className="ui acton input fluid">
+                      <input
+                        type="text"
+                        placeholder="Comment..."
+                        name="comment"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        ref={commentInputRef}
+                      />
+                      <button
+                        type="submit"
+                        className="ui button teal"
+                        disabled={comment.trim() === ""}
+                        onClick={submitComment}
+                        style={{ marginLeft: 20 }}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </Form>
+                </Card.Content>
+              </Card>
+            )}
             {comments.map((comment) => (
               <Card fluid key={comment.id}>
                 <Card.Content>
@@ -100,6 +149,21 @@ function SinglePost(props) {
   }
   return postMarkup;
 }
+
+const SUBMIT_COMMENT = gql`
+  mutation($postId: ID!, $body: String!) {
+    createComment(postId: $postId, body: $body) {
+      id
+      comments {
+        id
+        body
+        createdAt
+        username
+      }
+      commentCount
+    }
+  }
+`;
 
 const FETCH_POST = gql`
   query($postId: ID!) {
