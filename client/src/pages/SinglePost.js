@@ -1,4 +1,5 @@
 import React, { useState, useContext, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import {
   Card,
@@ -18,6 +19,7 @@ import DeleteButton from "../components/DeleteButton";
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
+  console.log(typeof user);
   const commentInputRef = useRef(null);
   const [comment, setComment] = useState("");
 
@@ -81,18 +83,30 @@ function SinglePost(props) {
                   <LikeButton user={user} post={{ id, likeCount, likes }} />
                 </div>
                 <div className="ui labeled button" tabIndex="0">
-                  <Button
-                    as="div"
-                    labelPosition="right"
-                    onClick={() => console.log("comment on post...")}
-                  >
-                    <Button basic color="blue">
-                      <Icon name="comments" />
+                  {user ? (
+                    <Button
+                      as="div"
+                      labelPosition="right"
+                      disabled={true}
+                      onClick={() => console.log("comment on post...")}
+                    >
+                      <Button basic color="blue">
+                        <Icon name="comments" />
+                      </Button>
+                      <Label basic color="blue" pointing="left">
+                        {commentCount}
+                      </Label>
                     </Button>
-                    <Label basic color="blue" pointing="left">
-                      {commentCount}
-                    </Label>
-                  </Button>
+                  ) : (
+                    <Button labelPosition="right" as={Link} to={"/login"}>
+                      <Button basic color="blue">
+                        <Icon name="comments" />
+                      </Button>
+                      <Label basic color="blue" pointing="left">
+                        {commentCount}
+                      </Label>
+                    </Button>
+                  )}
                 </div>
                 {user && user.username === username && (
                   <DeleteButton postId={id} callback={deletePostCallback} />
@@ -130,12 +144,9 @@ function SinglePost(props) {
             {comments.map((comment) => (
               <Card fluid key={comment.id}>
                 <Card.Content>
-                  {
-                    (user && user,
-                    username === comment.username && (
-                      <DeleteButton postId={id} commentId={comment.id} />
-                    ))
-                  }
+                  {user && user.username === comment.username && (
+                    <DeleteButton postId={id} commentId={comment.id} />
+                  )}
                   <Card.Header>{comment.username}</Card.Header>
                   <Card.Meta>{Helpers.timeAgo(comment.createdAt)}</Card.Meta>
                   <Card.Description>{comment.body}</Card.Description>

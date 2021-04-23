@@ -1,6 +1,14 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Card, Icon, Label, Image, Button, Grid } from "semantic-ui-react";
+import {
+  Card,
+  Icon,
+  Label,
+  Image,
+  Button,
+  Grid,
+  Popup,
+} from "semantic-ui-react";
 
 import { Helpers } from "../utils/helpers";
 import { AuthContext } from "../context/auth";
@@ -35,14 +43,19 @@ function PostCard({
               <LikeButton post={{ id, likes, likeCount }} />
             </Grid.Column>
             <Grid.Column>
-              <Button labelPosition="right" as={Link} to={`posts/${id}`}>
-                <Button color="blue" basic>
-                  <Icon name="comments" />
-                </Button>
-                <Label basic color="blue" pointing="left">
-                  {commentCount}
-                </Label>
-              </Button>
+              <Popup
+                content="Comment on post"
+                trigger={
+                  <Button labelPosition="right" as={Link} to={`posts/${id}`}>
+                    <Button color="blue" basic>
+                      <Icon name="comments" />
+                    </Button>
+                    <Label basic color="blue" pointing="left">
+                      {commentCount}
+                    </Label>
+                  </Button>
+                }
+              />
             </Grid.Column>
             <Grid.Column>
               {user && user.username === username && (
