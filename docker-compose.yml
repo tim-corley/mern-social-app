@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3'
 
 services:
   react-client:
@@ -6,7 +6,7 @@ services:
       context: ./client
     container_name: social-app_react-client
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - ./client:/usr/src/client
       - /usr/src/client/node_modules
@@ -20,7 +20,7 @@ services:
       context: ./server
     container_name: social-app_api-server
     ports:
-      - "5000:5000"
+      - '5000:5000'
     volumes:
       - ./server:/usr/src/server
     networks:
@@ -31,7 +31,7 @@ services:
     image: mongo:4.4.5-bionic
     container_name: mongo-db
     ports:
-      - "27017:27017"
+      - '27017:27017'
     env_file: .env
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
