@@ -12,3 +12,5 @@ config.js
 
 build/
 dist/
+
+data/

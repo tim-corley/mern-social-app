@@ -7,7 +7,7 @@ const cors = require("cors");
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
 const { MONGODB } = require("./config.js");
-const SERVER_PORT = process.env.SERVER_PORT;
+const SERVER_PORT = 5000;
 
 const pubsub = new PubSub();
 
@@ -22,13 +22,16 @@ const server = new ApolloServer({
 });
 
 mongoose
-  .connect(MONGODB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb://root:rootpassword@mongo-db:27017/social-app?authSource=admin",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("\n ⚙️  MongoDB Connected");
-    return server.listen({ port: `${SERVER_PORT}` });
+    return server.listen({ port: 5000 });
   })
   .then((res) => {
     console.log(`\n ⚡ Server is running at: ${res.url}`);
