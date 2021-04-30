@@ -1,49 +1,10 @@
-# version: "3"
-
-# services:
-#   react-client:
-#     image: react-client
-#     stdin_open: true
-#     ports:
-#       - "3000:3000"
-#     networks:
-#       - mern-app
-#   api-server:
-#     image: api-server
-#     ports:
-#       - "5000:5000"
-#     restart: always
-#     depends_on:
-#       - mongo
-#     links:
-#       - mongo
-#     networks:
-#       - mern-app
-#   mongo:
-#     image: mongo:3.6.19-xenial
-#     container_name: mongo
-#     env_file: .env
-#     environment:
-#       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-#       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-#       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-#     ports:
-#       - "27017:27017"
-#     networks:
-#       - mern-app
-#     volumes:
-#       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-#       - ./data:/root/data
-# networks:
-#   mern-app:
-#     driver: bridge
-
 version: "3.8"
 
 services:
   react-client:
     build:
       context: ./client
+    container_name: social-app_react-client
     ports:
       - "3000:3000"
     volumes:
@@ -57,6 +18,7 @@ services:
   api-server:
     build:
       context: ./server
+    container_name: social-app_api-server
     ports:
       - "5000:5000"
     volumes:

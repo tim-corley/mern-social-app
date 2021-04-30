@@ -19,7 +19,17 @@ The goal of this web application is to get practice with developing MERNG tech a
 - React
 - Semantic UI
 
-### Development
+### Dev w/ Docker-Compose
+
+1) Start Containers (DB, Server, Client):
+`➜  social-graphql-app git:(main) ✗ docker-compose up`
+
+docker-compose is using volumes for all containers in order to enable hot-reloading.
+
+2) Stop & Remove Containers:
+`➜  social-graphql-app git:(main) ✗ docker-compose down`
+
+### Development (Non-Docker)
 
 1) Start Mongod instance:
    `➜  ~ sudo mongod --auth --port 27017 --dbpath /var/lib/mongodb`
