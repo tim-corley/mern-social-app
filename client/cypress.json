@@ -1,1 +1,6 @@
-{}
+{
+  "env": {
+    "VALID_USERNAME": "Demo User",
+    "VALID_PASSWORD": "password"
+  }
+}
