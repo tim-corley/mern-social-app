@@ -1,12 +1,11 @@
-require("dotenv").config();
-const { ApolloServer, PubSub } = require("apollo-server");
-const mongoose = require("mongoose");
-const express = require("express");
-const cors = require("cors");
+const { ApolloServer, PubSub } = require('apollo-server');
+const mongoose = require('mongoose');
+const express = require('express');
+const cors = require('cors');
 
-const typeDefs = require("./graphql/typeDefs");
-const resolvers = require("./graphql/resolvers");
-const { MONGODB, SERVER_PORT } = require("./config.js");
+const typeDefs = require('./graphql/typeDefs');
+const resolvers = require('./graphql/resolvers');
+const { MONGODB, SERVER_PORT } = require('./config.js');
 
 const pubsub = new PubSub();
 
@@ -26,7 +25,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("\n ⚙️  MongoDB Connected");
+    console.log('\n ⚙️  MongoDB Connected');
     return server.listen({ port: SERVER_PORT });
   })
   .then((res) => {
