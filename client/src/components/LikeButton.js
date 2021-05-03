@@ -37,7 +37,7 @@ function LikeButton({ post: { id, likes, likeCount } }) {
       <Popup
         content={liked ? "Unlike" : "Like"}
         trigger={
-          <Button as="div" labelPosition="right">
+          <Button id="like-btn" as="div" labelPosition="right">
             {likeButton}
             <Label basic color="teal" pointing="left">
               {likeCount}

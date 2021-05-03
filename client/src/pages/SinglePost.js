@@ -78,17 +78,16 @@ function SinglePost(props) {
               </Card.Content>
               <hr />
               <Card.Content extra>
-                <div className="ui labeled button" tabIndex="0">
+                <div className="ui labeled button" id="like-btn" tabIndex="0">
                   <LikeButton user={user} post={{ id, likeCount, likes }} />
                 </div>
-                <div className="ui labeled button" tabIndex="0">
+                <div
+                  className="ui labeled button"
+                  id="comment-btn"
+                  tabIndex="0"
+                >
                   {user ? (
-                    <Button
-                      as="div"
-                      labelPosition="right"
-                      disabled={true}
-                      onClick={() => console.log("comment on post...")}
-                    >
+                    <Button as="div" labelPosition="right" disabled={true}>
                       <Button basic color="blue">
                         <Icon name="comments" />
                       </Button>

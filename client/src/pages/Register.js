@@ -72,15 +72,17 @@ function Register(props) {
           error={errors.confirmPassword ? true : false}
           onChange={onChange}
         />
-        <Button type="submit" primary>
+        <Button type="submit" id="register-btn" primary>
           Register
         </Button>
       </Form>
       {Object.keys(errors).length > 0 && (
-        <div className="ui error message">
+        <div className="ui error message" id="error-block">
           <ul className="list">
-            {Object.values(errors).map((value) => (
-              <li key={value}>{value}</li>
+            {Object.values(errors).map((value, i) => (
+              <li key={value} id={`error-item-${i}`}>
+                {value}
+              </li>
             ))}
           </ul>
         </div>

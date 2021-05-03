@@ -32,6 +32,7 @@ function DeleteButton({ postId, commentId, callback }) {
         content={commentId ? "Delete comment" : "Delete Post"}
         trigger={
           <Button
+            id="delete-btn"
             as="div"
             color="red"
             floated="right"

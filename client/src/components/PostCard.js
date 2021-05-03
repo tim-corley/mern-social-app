@@ -46,7 +46,12 @@ function PostCard({
               <Popup
                 content="Comment on post"
                 trigger={
-                  <Button labelPosition="right" as={Link} to={`posts/${id}`}>
+                  <Button
+                    labelPosition="right"
+                    id="comment-btn"
+                    as={Link}
+                    to={`posts/${id}`}
+                  >
                     <Button color="blue" basic>
                       <Icon name="comments" />
                     </Button>
