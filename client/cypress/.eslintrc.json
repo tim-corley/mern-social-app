@@ -2,4 +2,4 @@
     "extends": [
       "plugin:cypress/recommended"
     ]
-  }
+}

@@ -1,6 +1,7 @@
 {
   "env": {
     "VALID_USERNAME": "Demo User",
+    "VALID_EMAIL": "demo@email.com",
     "VALID_PASSWORD": "password"
   }
 }
