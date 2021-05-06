@@ -1,16 +1,18 @@
-const { ApolloServer, PubSub } = require('apollo-server');
-const mongoose = require('mongoose');
-const express = require('express');
-const cors = require('cors');
+const { ApolloServer, PubSub } = require("apollo-server");
+const mongoose = require("mongoose");
+const express = require("express");
+const path = require("path");
+const cors = require("cors");
 
-const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers');
-const { MONGODB, SERVER_PORT } = require('./config.js');
+const typeDefs = require("./graphql/typeDefs");
+const resolvers = require("./graphql/resolvers");
+const { MONGODB, SERVER_PORT } = require("./config.js");
 
 const pubsub = new PubSub();
 
 const app = express();
 app.use(cors());
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // this is using Express behind the scenes
 const server = new ApolloServer({
@@ -25,7 +27,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log('\n ⚙️  MongoDB Connected');
+    console.log("\n ⚙️  MongoDB Connected");
     return server.listen({ port: SERVER_PORT });
   })
   .then((res) => {
