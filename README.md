@@ -126,3 +126,13 @@ Docker Compose is using volumes for all containers in order to enable hot-reload
 6) Start the development server:
    
    `$ nodemon index.js`
+
+
+### Testing with Cypress
+
+The test files are found in `client/cypress/integration` and environment variables for tests are defined in `client/cypress.json`
+
+To start the Cypress test runner:
+`$ yarn cypress:open`
+
+Then select the desired spec file. This will launch a browser and execute the tests.

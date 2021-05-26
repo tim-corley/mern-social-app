@@ -3,5 +3,6 @@
     "VALID_USERNAME": "Demo User",
     "VALID_EMAIL": "demo@email.com",
     "VALID_PASSWORD": "password"
-  }
+  },
+  "baseUrl": "http://localhost:3000"
 }

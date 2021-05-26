@@ -1,12 +1,12 @@
 describe("Login Tests", () => {
   it("Login Button Directs to Login Page", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
     cy.contains("Login").click();
     cy.url().should("include", "/login");
     cy.get(".form > h1").should("have.text", "Login");
   });
   it("Invalid Credentials Prompts Error", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("/login");
     cy.get('input[name="username"]').type("Not User");
     cy.get('input[name="password"]').type("wrongpassword");
     cy.get('button[id="login-btn"]').click();
@@ -14,7 +14,7 @@ describe("Login Tests", () => {
     cy.get('[id="error-block"]').should("have.text", "User not found");
   });
   it("Blank Password Field Promts Error", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("/login");
     cy.get('input[name="username"]').type("Not User");
     cy.get('button[id="login-btn"]').click();
     cy.get('[id="error-block"]').should("be.visible");
@@ -24,7 +24,7 @@ describe("Login Tests", () => {
     );
   });
   it("Blank Username Field Promts Error", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("/login");
     cy.get('input[name="password"]').type("wrongpassword");
     cy.get('button[id="login-btn"]').click();
     cy.get('[id="error-block"]').should("be.visible");
@@ -34,7 +34,7 @@ describe("Login Tests", () => {
     );
   });
   it("Login Works with Valid Credentials", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("/login");
     cy.get('input[name="username"]').type(Cypress.env("VALID_USERNAME"));
     cy.get('input[name="password"]').type(Cypress.env("VALID_PASSWORD"));
     cy.get('button[id="login-btn"]').click();
@@ -44,7 +44,7 @@ describe("Login Tests", () => {
     cy.get('[id="username"]').should("have.text", "Demo User");
   });
   it("User Can Logout", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("/login");
     cy.get('input[name="username"]').type(Cypress.env("VALID_USERNAME"));
     cy.get('input[name="password"]').type(Cypress.env("VALID_PASSWORD"));
     cy.get('button[id="login-btn"]').click();
